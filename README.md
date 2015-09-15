@@ -1,7 +1,7 @@
 Laptop
 ======
 
-Laptop is a script to set up an OS X laptop for web development.
+Laptop is a script to set up an macOS laptop for web development.
 
 It can be run multiple times on the same machine safely.
 It installs, upgrades, or skips packages
@@ -12,8 +12,10 @@ Requirements
 
 We support:
 
-* [OS X Mavericks (10.9)](https://itunes.apple.com/us/app/os-x-mavericks/id675248567)
-* [OS X Yosemite (10.10)](https://www.apple.com/osx/)
+* OS X Mavericks (10.9)
+* OS X Yosemite (10.10)
+* OS X El Capitan (10.11)
+* macOS Sierra (10.12)
 
 Older versions may work but aren't regularly tested. Bug reports for older
 versions are welcome.
@@ -24,7 +26,7 @@ Install
 Download, review, then execute the script:
 
 ```sh
-curl --remote-name https://raw.githubusercontent.com/thoughtbot/laptop/master/mac
+curl --remote-name https://raw.githubusercontent.com/SpecializedBicycles/laptop/master/mac
 less mac
 sh mac 2>&1 | tee ~/laptop.log
 ```
@@ -47,9 +49,9 @@ What it sets up
 
 * [Bundler] for managing Ruby libraries
 * [Exuberant Ctags] for indexing files for vim tab completion
-* [Foreman] for managing web processes
 * [hub] for interacting with the GitHub API
 * [Heroku Toolbelt] for interacting with the Heroku API
+* [Parity] for managing Heroku apps
 * [Homebrew] for managing operating system libraries
 * [ImageMagick] for cropping and resizing images
 * [Node.js] and [NPM], for running apps and installing JavaScript packages
@@ -66,9 +68,9 @@ What it sets up
 
 [Bundler]: http://bundler.io/
 [Exuberant Ctags]: http://ctags.sourceforge.net/
-[Foreman]: https://github.com/ddollar/foreman
 [hub]: http://hub.github.com/
 [Heroku Toolbelt]: https://toolbelt.heroku.com/
+[Parity]: https://github.com/thoughtbot/parity
 [Homebrew]: http://brew.sh/
 [ImageMagick]: http://www.imagemagick.org/
 [Node.js]: http://nodejs.org/
@@ -143,26 +145,19 @@ you agree to abide by the thoughtbot [code of conduct].
 
 [code of conduct]: https://thoughtbot.com/open-source-code-of-conduct
 
+Regarding `Node` and `NVM`
+------------
+You should create NVM's working directory if it doesn't exist:
+`mkdir ~/.nvm`
+
+This script automatically appends the necessary `NVM` stuff to `~/.zshrc`.
+
 License
 -------
 
-Laptop is © 2011-2015 thoughtbot, inc.
+Laptop is © 2011-2016 thoughtbot, inc.
 It is free software,
 and may be redistributed under the terms specified in the [LICENSE] file.
 
 [LICENSE]: LICENSE
 
-About thoughtbot
-----------------
-
-![thoughtbot](https://thoughtbot.com/logo.png)
-
-Laptop is maintained and funded by thoughtbot, inc.
-The names and logos for thoughtbot are trademarks of thoughtbot, inc.
-
-We are passionate about open source software.
-See [our other projects][community].
-We are [available for hire][hire].
-
-[community]: https://thoughtbot.com/community?utm_source=github
-[hire]: https://thoughtbot.com?utm_source=github

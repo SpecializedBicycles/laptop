@@ -1,6 +1,7 @@
 #!/bin/sh
 
-# Welcome to the thoughtbot laptop script!
+# Welcome to the Specialized Bicycle Components laptop script!
+# We forked this from thoughtbot. Thanks, thoughtbot!
 # Be prepared to turn your laptop (or desktop, no haters here)
 # into an awesome development machine.
 
@@ -44,6 +45,18 @@ fi
 
 # shellcheck disable=SC2016
 append_to_zshrc 'export PATH="$HOME/.bin:$PATH"'
+
+# HOMEBREW_PREFIX="/usr/local"
+
+# if [ -d "$HOMEBREW_PREFIX" ]; then
+#   if ! [ -r "$HOMEBREW_PREFIX" ]; then
+#     sudo chown -R "$LOGNAME:admin" /usr/local
+#   fi
+# else
+#   sudo mkdir "$HOMEBREW_PREFIX"
+#   sudo chflags norestricted "$HOMEBREW_PREFIX"
+#   sudo chown -R "$LOGNAME:admin" "$HOMEBREW_PREFIX"
+# fi
 
 case "$SHELL" in
   */zsh) : ;;
@@ -128,7 +141,12 @@ else
   fancy_echo "Homebrew already installed. Skipping ..."
 fi
 
-fancy_echo "Updating Homebrew formulas ..."
+if brew list | grep -Fq brew-cask; then
+  fancy_echo "Uninstalling old Homebrew-Cask ..."
+  brew uninstall --force brew-cask
+fi
+
+fancy_echo "Updating Homebrew formulae ..."
 brew update
 
 brew_install_or_upgrade 'zsh'
@@ -146,6 +164,7 @@ brew_install_or_upgrade 'imagemagick'
 brew_install_or_upgrade 'qt'
 brew_install_or_upgrade 'hub'
 brew_install_or_upgrade 'node'
+brew_install_or_upgrade 'nvm'
 
 brew_install_or_upgrade 'rbenv'
 brew_install_or_upgrade 'ruby-build'
@@ -173,10 +192,13 @@ gem update --system
 gem_install_or_update 'bundler'
 
 fancy_echo "Configuring Bundler ..."
-  number_of_cores=$(sysctl -n hw.ncpu)
-  bundle config --global jobs $((number_of_cores - 1))
+number_of_cores=$(sysctl -n hw.ncpu)
+bundle config --global jobs $((number_of_cores - 1))
 
 brew_install_or_upgrade 'heroku-toolbelt'
+
+brew_tap thoughtbot/formulae
+brew_install_or_upgrade 'parity'
 
 if ! command -v rcup >/dev/null; then
   brew_tap 'thoughtbot/formulae'
